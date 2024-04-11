@@ -173,7 +173,7 @@ router.put(
         { new: true }
       );
 
-      res.send({success : true , user: nUser});
+      res.send({ success: true, user: nUser });
     } catch (error) {
       console.log(error.message);
       res.status(500).send("Internal server error.");
