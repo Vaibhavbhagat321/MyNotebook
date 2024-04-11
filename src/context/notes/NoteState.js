@@ -2,7 +2,8 @@ import NoteContext from "./NoteContext";
 import { useState } from "react";
 
 const NoteState = (props) => {
-  const host = "http://localhost:5000";
+  // const host = "http://localhost:5000";
+  const host = "https://my-notebook-api.vercel.app";
   const authToken = localStorage.getItem("token");
   const contentType = "application/json";
   const notesInitial = [
