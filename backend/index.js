@@ -11,10 +11,10 @@ const port = 5000;
 app.use(cors());
 app.use(express.json());
 
-// app.post("/demo", async (req, res) => {
-//   const demo = await Demo.create(req.body);
-//   res.status(200).json({ status: "success", data: demo });
-// });
+app.get("/demo", async (req, res) => {
+  // const demo = await Demo.create(req.body);
+  res.status(200).json({ status: "success", data: "demo" });
+});
 
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/notes", require("./routes/notes"));
