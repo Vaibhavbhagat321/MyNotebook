@@ -20,7 +20,7 @@ const Login = () => {
   return (
     <div className="container">
       <form onSubmit={formHandler}>
-        <h1>Login to Enter MyNotebook</h1>
+        <h1>Login to Enter Note App</h1>
         <div className="my-3">
           <label htmlFor="email" className="form-label">
             Email
