@@ -5,7 +5,7 @@ import NoteContext from "../context/notes/NoteContext";
 const Signup = () => {
   const navigate = useNavigate(null);
   const context = useContext(NoteContext);
-  const { signup } = context;
+  const { signup, isLoading } = context;
 
   const [credentials, setCredentials] = useState({
     name: "",
@@ -88,8 +88,8 @@ const Signup = () => {
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary">
-          Submit
+        <button type="submit" className="btn btn-primary" disabled={isLoading}>
+          Sign up
         </button>
       </form>
     </div>

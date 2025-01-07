@@ -8,22 +8,22 @@ const NoteState = (props) => {
   const contentType = "application/json";
   const notesInitial = [
     {
-      _id: "63ec953012ae08c9a8407412",
-      user: "63ec928b12ae08c9a84073f4",
-      title: "dumy title",
-      description: "this is dumy description",
-      tag: "personal",
-      date: "2023-02-15T08:17:52.163Z",
-      __v: 0,
-    },
-    {
-      _id: "63ec953012a1e08c9a8407412",
-      user: "63ec928b12ae08c9a84073f4",
-      title: "dumy title 2",
-      description: "this is dumy description",
-      tag: "personal",
-      date: "2023-02-15T08:17:52.163Z",
-      __v: 0,
+      //   _id: "63ec953012ae08c9a8407412",
+      //   user: "63ec928b12ae08c9a84073f4",
+      //   title: "dumy title",
+      //   description: "this is dumy description",
+      //   tag: "personal",
+      //   date: "2023-02-15T08:17:52.163Z",
+      //   __v: 0,
+      // },
+      // {
+      //   _id: "63ec953012a1e08c9a8407412",
+      //   user: "63ec928b12ae08c9a84073f4",
+      //   title: "dumy title 2",
+      //   description: "this is dumy description",
+      //   tag: "personal",
+      //   date: "2023-02-15T08:17:52.163Z",
+      //   __v: 0,
     },
   ];
   const [notes, setNotes] = useState(notesInitial);
@@ -32,6 +32,7 @@ const NoteState = (props) => {
     message: "",
   });
   const [user, setUser] = useState({ id: "", name: "", email: "" });
+  const [isLoading, setIsLoading] = useState(false);
 
   const showAlert = (type, message) => {
     setAlert({ type, message });
@@ -55,6 +56,7 @@ const NoteState = (props) => {
 
   //ADD note
   const addNote = async (title, description, tag) => {
+    setIsLoading(true);
     //---------------------add note in dummy array
     // const note = {
     //   _id: "163f06f088a535d9fc14ed95",
@@ -81,10 +83,13 @@ const NoteState = (props) => {
         tag,
       }),
     });
+    await getNotes();
+    setIsLoading(false);
   };
 
   //DELETE note
   const deleteNote = async (id) => {
+    setIsLoading(true);
     //---------------------delete note in dummy array
     // setNotes(
     //   notes.filter((note) => {
@@ -101,12 +106,13 @@ const NoteState = (props) => {
       },
     });
     showAlert("success", "Note Deleted Successfully.");
-    // const obj = await response.json()
-    // console.log( obj);
+    await getNotes();
+    setIsLoading(false);
   };
 
   //UPDATE note
   const updateNote = async (id, title, description, tag) => {
+    setIsLoading(true);
     // ---------------------update note using api call
     await fetch(`${host}/api/notes/updatenote/${id}`, {
       method: "PUT",
@@ -121,6 +127,8 @@ const NoteState = (props) => {
       }),
     });
     showAlert("success", "Note Updated Successfully.");
+    await getNotes();
+    setIsLoading(false);
   };
 
   //fetching user data
@@ -138,6 +146,7 @@ const NoteState = (props) => {
   };
 
   const changePassword = async (password) => {
+    setIsLoading(true);
     // ---------------------change password using api call
     const response = await fetch(`${host}/api/auth/changepassword`, {
       method: "PUT",
@@ -155,9 +164,11 @@ const NoteState = (props) => {
     json.success
       ? showAlert("success", "Password change successfully.")
       : showAlert("danger", json.error);
+    setIsLoading(false);
   };
 
   const login = async (credentials, navigate) => {
+    setIsLoading(true);
     const response = await fetch(`${host}/api/auth/login`, {
       method: "POST",
       headers: {
@@ -176,9 +187,11 @@ const NoteState = (props) => {
     } else {
       showAlert("danger", "Enter valid Credentials.");
     }
+    setIsLoading(false);
   };
 
   const signup = async (credentials, navigate) => {
+    setIsLoading(true);
     if (credentials.password === credentials.cPassword) {
       const response = await fetch(`${host}/api/auth/createuser`, {
         method: "POST",
@@ -202,6 +215,7 @@ const NoteState = (props) => {
       showAlert("danger", "Enter correct credentials.");
       console.log(credentials);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -219,6 +233,7 @@ const NoteState = (props) => {
         changePassword,
         login,
         signup,
+        isLoading,
       }}
     >
       {props.children}

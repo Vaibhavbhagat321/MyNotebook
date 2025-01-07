@@ -4,7 +4,7 @@ import profile from "../static/profile.jpg";
 
 const Profile = () => {
   const context = useContext(NoteContext);
-  const { user, fetchUser, changePassword } = context;
+  const { user, fetchUser, changePassword, isLoading } = context;
   const ref = useRef(null);
   const ref_change = useRef(null);
 
@@ -17,7 +17,7 @@ const Profile = () => {
   useEffect(() => {
     fetchUser();
     // eslint-disable-next-line
-  }, [user]);
+  }, []);
 
   const showModal = () => {
     ref.current.click();
@@ -123,7 +123,11 @@ const Profile = () => {
                 >
                   Close
                 </button>
-                <button type="submit" className="btn btn-primary">
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={isLoading}
+                >
                   Change
                 </button>
               </div>

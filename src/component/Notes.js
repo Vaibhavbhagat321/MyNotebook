@@ -5,7 +5,7 @@ import NoteItem from "./NoteItem";
 
 const Notes = () => {
   const context = useContext(NoteContext);
-  const { notes, getNotes, updateNote } = context;
+  const { notes, getNotes, updateNote, isLoading } = context;
   const navigate = useNavigate();
 
   const ref_modal = useRef(null);
@@ -23,7 +23,7 @@ const Notes = () => {
       navigate("/login");
     }
     // eslint-disable-next-line
-  }, [notes]);
+  }, []);
 
   const showUpdateNote = (note) => {
     ref_modal.current.click();
@@ -136,7 +136,9 @@ const Notes = () => {
                 type="button"
                 className="btn btn-primary"
                 disabled={
-                  note.etitle.length < 3 || note.edescription.length < 5
+                  note.etitle.length < 3 ||
+                  note.edescription.length < 5 ||
+                  isLoading
                 }
               >
                 Update Note

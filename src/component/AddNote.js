@@ -3,7 +3,7 @@ import NoteContext from "../context/notes/NoteContext";
 
 const AddNote = () => {
   const context = useContext(NoteContext);
-  const { addNote, showAlert } = context;
+  const { addNote, showAlert, isLoading } = context;
   const [note, setNote] = useState({ title: "", description: "", tag: "" });
 
   const handleSubmit = (e) => {
@@ -72,7 +72,9 @@ const AddNote = () => {
           <button
             type="submit"
             className="btn btn-primary"
-            disabled={note.title.length < 3 || note.description.length < 5}
+            disabled={
+              note.title.length < 3 || note.description.length < 5 || isLoading
+            }
           >
             Add Note
           </button>

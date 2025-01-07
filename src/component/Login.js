@@ -6,7 +6,7 @@ const Login = () => {
   const navigate = useNavigate(null);
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const context = useContext(NoteContext);
-  const { login } = context;
+  const { login, isLoading } = context;
 
   const formHandler = async (e) => {
     e.preventDefault();
@@ -51,8 +51,8 @@ const Login = () => {
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary">
-          Submit
+        <button type="submit" className="btn btn-primary" disabled={isLoading}>
+          Login
         </button>
       </form>
     </div>
